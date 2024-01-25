@@ -52,7 +52,37 @@
 // console.log(ageUntilRetirement(1980, 'Bob'));
 
 // Functions calling other functions
-function fruitProcessor(apples, oranges){
-    const juice = `Juice with ${apples} apples and ${oranges} oranges.`;
-    return juice;
+// const cutFruitPieces = function(fruit){
+//     return fruit * 4;
+// }
+
+// function fruitProcessor(apples, oranges){
+//     const applePieces = cutFruitPieces(apples);
+//     const orangePieces = cutFruitPieces(oranges);
+//     const juice = `Juice with ${applePieces} piece of apple and ${orangePieces} piece of orange oranges.`;
+//     return juice;
+// }
+
+// console.log(fruitProcessor(2, 4))
+
+// Refactoring the ageUntilRetirement function
+const calcAge = function(birthYear){
+    return 2037 - birthYear
 }
+
+const ageUntilRetirement = (birthYear, firstname) => {
+    const age = calcAge(birthYear);
+    const retirement = 65 - age;
+
+    if (retirement > 0){
+        console.log(`${firstname} retires in ${retirement} years`);
+        return retirement;
+    }else{
+        console.log(`${firstname} has already retired 🎉`)
+        ;
+        return -1
+    }   
+}
+
+console.log((ageUntilRetirement(1990, 'Jonas')));
+console.log((ageUntilRetirement(1970, 'Mike')))
