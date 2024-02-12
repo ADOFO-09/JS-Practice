@@ -12,3 +12,28 @@
 // Test data: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95 m 
 // tall
 
+const MarkMiller = {
+    firstName: 'Mark',
+    lastName: 'Miller',
+    mass: 78,
+    height: 1.69,
+    calcBMI: function(){
+      this.BMI = this.mass / this.height ** 2  
+      return this.BMI
+    }
+};
+
+const JohnSmith = {
+    firstName: 'John',
+    lastName: 'Smith',
+    mass: 92,
+    height: 1.95,
+    calcBMI: function(){
+        this.BMI = this.mass / this.height ** 2
+        return this.BMI  
+      }
+};
+
+console.log(`${MarkMiller.BMI > JohnSmith.BMI? 
+`${MarkMiller.firstName} BMI(${MarkMiller.calcBMI()}) is higher than ${JohnSmith.firstName}`:
+`${JohnSmith.firstName} BMI(${JohnSmith.calcBMI()}) is higher than ${MarkMiller.firstName}`}`);
