@@ -35,5 +35,5 @@ const JohnSmith = {
 };
 
 console.log(`${MarkMiller.BMI > JohnSmith.BMI? 
-`${MarkMiller.firstName} BMI(${MarkMiller.calcBMI()}) is higher than ${JohnSmith.firstName}`:
-`${JohnSmith.firstName} BMI(${JohnSmith.calcBMI()}) is higher than ${MarkMiller.firstName}`}`);
+`${MarkMiller.firstName} BMI(${MarkMiller.calcBMI()}) is higher than ${JohnSmith.firstName} BMI(${JohnSmith.calcBMI()})`:
+`${JohnSmith.firstName} BMI(${JohnSmith.calcBMI()}) is higher than ${MarkMiller.firstName} BMI(${MarkMiller.calcBMI()})`}`);
