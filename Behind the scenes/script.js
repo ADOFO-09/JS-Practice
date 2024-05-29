@@ -47,3 +47,36 @@ calcAge(1991);
 // console.log(age);
 
  
+// Hoisting with variables
+console.log(me);
+// console.log(job);
+// console.log(year);
+
+var me = 'jonas'; //var variables are hoisted to the valuue of undefined
+let job = 'teacher';
+const year = 1991;
+
+// Hoisting with functions
+console.log(addDecl(2, 3));
+// console.log(addExpr(2, 3));
+// console.log(addArrow);
+
+function addDecl(a,b){
+    return a + b;
+}
+
+const addExpr = function(a, b){
+    return a + b;
+}
+
+var addArrow = (a, b) => a + b; //var variables are hoisted to undefined
+
+var x = 1;
+const y = 2;
+let z = 3;
+
+console.log(x === window.x);
+// variables declared with var will create a property on the global window object 
+// which can lead to some implications in some cases.
+console.log(y === window.y);
+console.log(z === window.z);
