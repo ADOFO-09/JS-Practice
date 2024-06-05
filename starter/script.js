@@ -155,3 +155,35 @@ const matilda = {
 matilda.calcAge = jonas.calcAge
 matilda.calcAge(2037) // The this keyword now points to matilda 
 
+
+//Primitives vrs Objects
+let lastname = 'William';
+let oldname = lastname;
+lastname = 'Davis';
+console.log(lastname, oldname);
+
+const jessica = {
+    firstname: 'Jessica',
+    lastname: 'Williams',
+    age: 27,
+}
+
+const marriedJessica = jessica
+marriedJessica.lastname = 'Davies';
+console.log('Before marriage', jessica);
+console.log('After marriage', marriedJessica);
+
+//Copying objects
+const jessica2 = {
+    firstname: 'Jessica',
+    lastname: 'Williams',
+    age: 27,
+};
+
+//Shallow copying
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastname = 'Davies';
+console.log('Before marriage', jessica2);
+console.log('After marriage', jessicaCopy);
+
+
