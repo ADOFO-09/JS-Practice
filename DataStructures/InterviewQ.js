@@ -61,5 +61,13 @@ function containsCommonItems2(arr1, arr2){
 }
 
 // O(a + b) Time complexity
+// O(a) Space complexity
 
 containsCommonItems2(array1, array2);
+
+// THIRD APPROACH
+function containsCommonItems3(arr1, arr2){
+   return arr1.some(item => arr2.includes(item))
+}
+
+containsCommonItems3(array1, array2);
