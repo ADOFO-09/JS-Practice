@@ -86,3 +86,23 @@ document.body.addEventListener('click', high5);
 ['Mark','Tony','Linda'].forEach(high5);
 
 transformer('EMM is a good boy!', lowerFirstWord);
+
+//Functions Returning Functions
+
+// const greet = function (greeting){
+//     return function(name){
+//         console.log(`${greeting} ${name}`)
+//     }
+// } 
+ 
+// An arrow function returning an arrow function
+const greet = (greeting) =>  (name) => console.log(`${greeting} ${name}`)
+    
+
+
+const greeterHey = greet('Hey');
+greeterHey('Jonas');
+greeterHey('Steven');
+
+greet('Hello')('Jonas');
+
