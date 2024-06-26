@@ -23,30 +23,66 @@
 // createBookings('LH123', undefined, undefined)
 // createBookings('LH123', 3);
 
-const flight = 'LH123';
-const Emma = {
-    name: 'Emmanuel Adofo',
-    passport: 247520600,
+// const flight = 'LH123';
+// const Emma = {
+//     name: 'Emmanuel Adofo',
+//     passport: 247520600,
+// };
+
+// const checkIn = function(flightNum, passenger) {
+//     flightNum = 'LH999';
+//     passenger.name = 'Mr. ' + passenger.name;
+
+//     if(passenger.passport === 247520600){
+//         alert('Checked In');
+//     } else {
+//         alert('Wrong passport');
+//     }
+// };
+
+// checkIn(flight, Emma);
+// console.log(flight);
+// console.log(Emma);
+
+// const newPassport = function(person){
+//     person.passport = Math.trunc(Math.random() * 1000000000000);
+// };
+
+// newPassport(Emma);
+// checkIn(flight, Emma);
+
+const oneWord = function (str) {
+    return str.replace(/ /g, '').toLowerCase();
 };
 
-const checkIn = function(flightNum, passenger) {
-    flightNum = 'LH999';
-    passenger.name = 'Mr. ' + passenger.name;
+const upperFirstWord = function (str) {
+    const [first, ...others] = str.split('');
+    return [first.toUpperCase(), ...others].join('');
+};  
 
-    if(passenger.passport === 247520600){
-        alert('Checked In');
-    } else {
-        alert('Wrong passport');
-    }
-};
+const lowerFirstWord = function (str) {
+    const [first, ...others] = str.split('');
+    return [first.toLowerCase(), ...others].join('');
+}
 
-checkIn(flight, Emma);
-console.log(flight);
-console.log(Emma);
+//Higher-order function
+const transformer = function(str, fn) {
+    console.log(`Original string: ${str}`);
+    console.log(`Transformed string: ${fn(str)}`);
 
-const newPassport = function(person){
-    person.passport = Math.trunc(Math.random() * 1000000000000);
-};
+    console.log(`Transformed by: ${fn.name}`);
+}
 
-newPassport(Emma);
-checkIn(flight, Emma);
+transformer('javascript is the best!', upperFirstWord);
+
+transformer('javascript is the best!', oneWord);
+
+// JS uses callbacks all the time
+const high5 = function(){
+    console.log('👋')
+}
+
+document.body.addEventListener('click', high5);
+['Mark','Tony','Linda'].forEach(high5);
+
+transformer('EMM is a good boy!', lowerFirstWord);
