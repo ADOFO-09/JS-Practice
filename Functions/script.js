@@ -51,58 +51,107 @@
 // newPassport(Emma);
 // checkIn(flight, Emma);
 
-const oneWord = function (str) {
-    return str.replace(/ /g, '').toLowerCase();
-};
+// const oneWord = function (str) {
+//     return str.replace(/ /g, '').toLowerCase();
+// };
 
-const upperFirstWord = function (str) {
-    const [first, ...others] = str.split('');
-    return [first.toUpperCase(), ...others].join('');
-};  
+// const upperFirstWord = function (str) {
+//     const [first, ...others] = str.split('');
+//     return [first.toUpperCase(), ...others].join('');
+// };  
 
-const lowerFirstWord = function (str) {
-    const [first, ...others] = str.split('');
-    return [first.toLowerCase(), ...others].join('');
-}
+// const lowerFirstWord = function (str) {
+//     const [first, ...others] = str.split('');
+//     return [first.toLowerCase(), ...others].join('');
+// }
 
-//Higher-order function
-const transformer = function(str, fn) {
-    console.log(`Original string: ${str}`);
-    console.log(`Transformed string: ${fn(str)}`);
+// //Higher-order function
+// const transformer = function(str, fn) {
+//     console.log(`Original string: ${str}`);
+//     console.log(`Transformed string: ${fn(str)}`);
 
-    console.log(`Transformed by: ${fn.name}`);
-}
+//     console.log(`Transformed by: ${fn.name}`);
+// }
 
-transformer('javascript is the best!', upperFirstWord);
+// transformer('javascript is the best!', upperFirstWord);
 
-transformer('javascript is the best!', oneWord);
+// transformer('javascript is the best!', oneWord);
 
-// JS uses callbacks all the time
-const high5 = function(){
-    console.log('👋')
-}
+// // JS uses callbacks all the time
+// const high5 = function(){
+//     console.log('👋')
+// }
 
-document.body.addEventListener('click', high5);
-['Mark','Tony','Linda'].forEach(high5);
+// document.body.addEventListener('click', high5);
+// ['Mark','Tony','Linda'].forEach(high5);
 
-transformer('EMM is a good boy!', lowerFirstWord);
+// transformer('EMM is a good boy!', lowerFirstWord);
 
-//Functions Returning Functions
+// //Functions Returning Functions
 
-// const greet = function (greeting){
-//     return function(name){
-//         console.log(`${greeting} ${name}`)
-//     }
-// } 
+// // const greet = function (greeting){
+// //     return function(name){
+// //         console.log(`${greeting} ${name}`)
+// //     }
+// // } 
  
-// An arrow function returning an arrow function
-const greet = (greeting) =>  (name) => console.log(`${greeting} ${name}`)
+// // An arrow function returning an arrow function
+// const greet = (greeting) =>  (name) => console.log(`${greeting} ${name}`)
     
 
 
-const greeterHey = greet('Hey');
-greeterHey('Jonas');
-greeterHey('Steven');
+// const greeterHey = greet('Hey');
+// greeterHey('Jonas');
+// greeterHey('Steven');
 
-greet('Hello')('Jonas');
+// greet('Hello')('Jonas');
 
+
+// The call and apply methods
+
+const lufthansa = {
+    airline: 'Lufthansa',
+    iataCode: 'LH',
+    bookings: [],
+    book(flightNum , name){
+        console.log(
+            `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+        );
+        
+        this.bookings.push({flight:`${this.iataCode}${flightNum}`, name})
+    }
+}
+
+lufthansa.book(239, 'Adofo Emmanuel');
+lufthansa.book(635, 'Micheal Angelo'); 
+
+const eurowings = {
+    airline: 'Eurowings',
+    iataCode: 'EW',
+    bookings: [],
+}
+
+const book = lufthansa.book;
+
+// Does not work
+// book(23, 'Sandra Boakye');
+
+book.call(eurowings, 23, 'Sarah Williams')
+console.log(eurowings)
+
+book.call(lufthansa, 239, 'Mary Cooper')
+console.log(lufthansa)
+
+const swiss = {
+    airline: 'Swiss',
+    iataCode: 'SW',
+    bookings: [],
+}
+
+book.call(swiss, 430, 'Anita Adofo')
+console.log(swiss)
+
+const flightData = [543, 'Richmond']
+// book.apply(swiss, flightData ) this method is old
+book.call(swiss, ...flightData)
+console.log(swiss)
