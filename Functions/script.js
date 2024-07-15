@@ -201,3 +201,19 @@ const addTaxRate = function (rate){
 const addVAT2 = addTaxRate(0.23);
 console.log(addVAT(100));
 console.log(addVAT(23));
+
+console.log('good')
+
+// Immediately invoked function expression
+function runOnce (){
+    console.log('this will run again');
+} 
+runOnce();
+
+(function () {
+    console.log('this will run again')
+})();
+
+(() => {
+    console.log('this will never run again')
+})();
