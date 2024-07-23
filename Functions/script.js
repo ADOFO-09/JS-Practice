@@ -212,8 +212,17 @@ runOnce();
 
 (function () {
     console.log('this will run again')
+    const isPrivate = 23;
 })();
-
+// The LAST opened parentesis calls the function immediately at once 
 (() => {
     console.log('this will never run again')
 })();
+
+{
+    const isPrivate = 23;
+    var notPrivate = 21;
+    console.log(isPrivate);
+}
+
+console.log(notPrivate);
