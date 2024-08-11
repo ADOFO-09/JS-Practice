@@ -79,6 +79,27 @@ const displayMovements = function(movements){
   })
 } 
 displayMovements(account1.movements);
+
+const calcDisplayBalance = function(movements){
+  const balance = movements.reduce((acc, cur) => acc + cur, 0);
+  labelBalance.textContent = `${balance} EUR`
+}
+calcDisplayBalance(account1.movements)
+
+
+const createUsernames = function(accs){
+  accs.forEach((acc) =>
+    acc.username = acc.owner
+    .toLowerCase()
+    .split(' ')
+    .map(name => name[0])
+    .join('')
+  )
+}
+createUsernames(accounts);
+
+
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -160,20 +181,89 @@ movements.forEach(function(mov, i){
 })
 */
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-// MAP
-currencies.forEach(function(value,key,map){
-  console.log(`${key}: ${value}`);
-});
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
+// // MAP
+// currencies.forEach(function(value,key,map){
+//   console.log(`${key}: ${value}`);
+// });
 
-// SET
-const currenciesUnique = new Set(['USD', 'GBP', 'USD' , 'EUR', 'EUR']);
-console.log(currenciesUnique);
-currenciesUnique.forEach(function(value, _ , map){
-  console.log(`${value}: ${value}`);
-});
+// // SET
+// const currenciesUnique = new Set(['USD', 'GBP', 'USD' , 'EUR', 'EUR']);
+// console.log(currenciesUnique);
+// currenciesUnique.forEach(function(value, _ , map){
+//   console.log(`${value}: ${value}`);
+// });
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300]
+const eurToUsd = 1.1;
+
+// const movementsUSD = movements.map(function(mov){
+//   return mov * eurToUsd;
+// });
+// const movementsUSD = movements.map(mov => mov * eurToUsd)
+// console.log(movements);
+// console.log(movementsUSD);
+
+
+// const movementsUSDfor = [];
+// for(const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+// console.log(movementsUSDfor);
+
+// const movementsDescription = movements.map((mov, i) => 
+//   `Movement ${i + 1}: You  ${mov > 0? 'deposited' : 'withdrew'} ${Math.abs(mov)}`
+// );
+
+// console.log(movementsDescription);
+
+// filter method functions with respect to a condition
+ const deposit = movements.filter(function(mov){
+   return mov > 0;
+ })
+
+console.log(movements);
+console.log(deposit);
+
+const depositfor = [];
+for(const mov of movements) if(mov > 0) depositfor.push(mov);
+console.log(depositfor);
+
+const withdrawal = movements.filter(mov => mov < 0);
+console.log(withdrawal);
+
+const withdrawalfor = [];
+for(const mov of movements) if(mov < 0) withdrawalfor.push(mov);
+console.log(withdrawalfor);
+
+// Reduce Method
+// const balance = movements.reduce(function(acc, cur,i, arr){
+//    console.log(`Iteration ${i}: ${acc}`);
+//    return acc + cur
+// }, 0)
+const balance = movements.reduce((acc, cur) => acc + cur, 0);
+console.log(balance);
+
+let balance2 = 0;
+for(const mov of movements) balance2 += mov;
+console.log(balance2);
+
+//Maximum value 
+const max = movements.reduce((acc, mov) => {
+    if(acc > mov) return acc;
+    else return mov; 
+}, movements[0]);
+console.log(max);
+
+const min = movements.reduce((acc, mov) => {
+  if(acc > mov) return mov;
+  else return acc;
+}, movements[0]);
+console.log(min);
+
+
+
+
 
