@@ -71,20 +71,42 @@ const displayMovements = function(movements){
        <div class="movements__row">
           <div class="movements__type 
           movements__type--${type}">${i + 1} ${type}</div>
-          <div class="movements__value">${mov}</div>
+          <div class="movements__value">${mov}€</div>
         </div>
     `;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
   })
 } 
-displayMovements(account1.movements);
+
 
 const calcDisplayBalance = function(movements){
   const balance = movements.reduce((acc, cur) => acc + cur, 0);
-  labelBalance.textContent = `${balance} EUR`
+  labelBalance.textContent = `${balance}€`
 }
-calcDisplayBalance(account1.movements)
+
+
+
+const calcDisplaySummary = function(acc){
+  const incomes = acc.movements
+    .filter(mov => mov > 0)
+    .reduce((acc, income) => acc + income, 0);
+    labelSumIn.textContent = `${incomes}€`
+
+  const withdrawals = acc.movements
+    .filter(mov => mov < 0)
+    .reduce((acc, out) => acc + out, 0);
+    labelSumOut.textContent = `${Math.abs(withdrawals)}€`
+  
+  const interest = acc.movements
+    .filter(mov => mov > 0)
+    .map(deposit  => (deposit * acc.interestRate) / 100)
+    .filter((int , i, arr) => {
+      return int >= 1; // includes movements with value above or equal to 1
+    })
+    .reduce((acc, int) => acc + int, 0);
+    labelSumInterest.textContent = `${interest}€`
+}
 
 
 const createUsernames = function(accs){
@@ -98,6 +120,33 @@ const createUsernames = function(accs){
 }
 createUsernames(accounts);
 
+let currentAccount;
+btnLogin.addEventListener('click', function(e){
+    e.preventDefault();
+    currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+    console.log(currentAccount)
+
+    if(currentAccount.pin === Number(inputLoginPin.value)){
+       // Display UI and welcome message
+       labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
+       containerApp.style.opacity = 100; 
+
+       // Clear input fields
+        inputLoginUsername.value = inputLoginPin.value = '';
+
+       // Display movements
+        displayMovements(currentAccount.movements);
+
+       // Display balance
+        calcDisplayBalance(currentAccount.movements);
+
+       // Display summary
+        calcDisplaySummary(currentAccount);
+    }
+});
+
+
+
 
 
 /////////////////////////////////////////////////
@@ -110,7 +159,7 @@ createUsernames(accounts);
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /*
@@ -198,8 +247,8 @@ movements.forEach(function(mov, i){
 //   console.log(`${value}: ${value}`);
 // });
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300]
-const eurToUsd = 1.1;
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300]
+// const eurToUsd = 1.1;
 
 // const movementsUSD = movements.map(function(mov){
 //   return mov * eurToUsd;
@@ -220,50 +269,71 @@ const eurToUsd = 1.1;
 // console.log(movementsDescription);
 
 // filter method functions with respect to a condition
- const deposit = movements.filter(function(mov){
-   return mov > 0;
- })
+//  const deposit = movements.filter(function(mov){
+//    return mov > 0;
+//  })
 
-console.log(movements);
-console.log(deposit);
+// console.log(movements);
+// console.log(deposit);
 
-const depositfor = [];
-for(const mov of movements) if(mov > 0) depositfor.push(mov);
-console.log(depositfor);
+// const depositfor = [];
+// for(const mov of movements) if(mov > 0) depositfor.push(mov);
+// console.log(depositfor);
 
-const withdrawal = movements.filter(mov => mov < 0);
-console.log(withdrawal);
+// const withdrawal = movements.filter(mov => mov < 0);
+// console.log(withdrawal);
 
-const withdrawalfor = [];
-for(const mov of movements) if(mov < 0) withdrawalfor.push(mov);
-console.log(withdrawalfor);
+// const withdrawalfor = [];
+// for(const mov of movements) if(mov < 0) withdrawalfor.push(mov);
+// console.log(withdrawalfor);
 
 // Reduce Method
 // const balance = movements.reduce(function(acc, cur,i, arr){
 //    console.log(`Iteration ${i}: ${acc}`);
 //    return acc + cur
 // }, 0)
-const balance = movements.reduce((acc, cur) => acc + cur, 0);
-console.log(balance);
+// const balance = movements.reduce((acc, cur) => acc + cur, 0);
+// console.log(balance);
 
-let balance2 = 0;
-for(const mov of movements) balance2 += mov;
-console.log(balance2);
+// let balance2 = 0;
+// for(const mov of movements) balance2 += mov;
+// console.log(balance2);
 
-//Maximum value 
-const max = movements.reduce((acc, mov) => {
-    if(acc > mov) return acc;
-    else return mov; 
-}, movements[0]);
-console.log(max);
+// //Maximum value 
+// const max = movements.reduce((acc, mov) => {
+//     if(acc > mov) return acc;
+//     else return mov; 
+// }, movements[0]);
+// console.log(max);
 
-const min = movements.reduce((acc, mov) => {
-  if(acc > mov) return mov;
-  else return acc;
-}, movements[0]);
-console.log(min);
+// const min = movements.reduce((acc, mov) => {
+//   if(acc > mov) return mov;
+//   else return acc;
+// }, movements[0]);
+// console.log(min);
+
+const eurToUsd = 1.1;
+
+// PIPELINE
+//  Chaining Methods
+// Methods can be chained if preceding method returns an array
+const totalDeposit = movements
+.filter(mov => mov > 0)
+// .map(mov => mov * eurToUsd)
+.map((mov, i , arr) => {
+    return mov * eurToUsd;
+})
+.reduce((acc, mov) => acc + mov, 0);
+// Reduce returns a value therefore a method can not be chained to it
+console.log(totalDeposit);
 
 
+// The find method
+// The find method is used to find one element in a collection
+const firstWithdrawal = movements.find(mov => mov < 0)
+console.log(movements)
+console.log(firstWithdrawal);
 
-
+const account = accounts.find(acc => acc.owner === 'Jessica Davis')
+console.log(account)
 
